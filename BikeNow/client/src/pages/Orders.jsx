@@ -31,11 +31,9 @@ function Orders() {
     };
 
     return (
-        <div>
-            <h1>Order List</h1>
-            <p>Total Orders: {orders.length}</p>
+        <div className="max-w-4xl mx-auto p-6">
+            <h1 className="text-3xl font-bold text-gray-800 mb-4">Order Management</h1>
             <OrderList orders={orders} onDelete={handleDelete} onUpdateStatus={handleStatusUpdate} />
-            <h2>Add New Order</h2>
             <OrderForm onOrderCreated={handleOrderCreated} />
         </div>
     );

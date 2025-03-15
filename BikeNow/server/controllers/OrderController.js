@@ -32,7 +32,7 @@ exports.deleteOrder = async (req, res) => {
 exports.updateOrderStatus = async (req, res) => {
     try {
         const { id } = req.params;
-        const { status } = req.body; // New status (Pending, Shipped, Delivered) - Deleted is technically cancelled
+        const { status } = req.body; // New status (Pending, Shipped, Delivered) - Deletion/Removal is technically cancelling
         const updatedOrder = await Order.findByIdAndUpdate(id, { status }, { new: true });
         res.json(updatedOrder);
     } catch (error) {

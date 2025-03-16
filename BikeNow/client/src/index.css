@@ -1,5 +1,20 @@
 @import "tailwindcss";
 
-input {
-    @apply border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-400;
+/* 🌙 Global Dark Mode */
+body {
+    @apply bg-gray-900 text-white;
+  }
+  
+  /* 🌙 Make input fields and buttons adapt */
+  input, textarea {
+    @apply bg-gray-800 text-white border-gray-600 focus:ring-2 focus:ring-blue-400;
+  }
+  
+  button {
+    @apply bg-gray-700 text-white hover:bg-gray-600;
+  }
+  
+  /* 🌙 Style containers (cards) */
+  .card {
+    @apply bg-gray-800 text-white shadow-lg rounded-lg p-6;
   }

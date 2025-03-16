@@ -1,23 +1,30 @@
-const Order = require("../models/Order");
+const Order = require('../models/Order'); 
 
-// ✅ Fetch all orders
 exports.getOrders = async (req, res) => {
-    const orders = await Order.find();
-    res.json(orders);
-};
-
-// ✅ Create a new order
-exports.createOrder = async (req, res) => {
     try {
-        const newOrder = new Order(req.body);
-        await newOrder.save();
-        res.status(201).json(newOrder);
+        const orders = await Order.find();
+        res.json(orders);
     } catch (error) {
-        res.status(500).json({ error: "Failed to create order" });
+        res.status(500).json({ message: error.message });
     }
 };
 
-// ✅ Delete an order
+exports.createOrder = async (req, res) => {
+    const { customerName, product, quantity } = req.body;
+    const order = new Order({
+        customerName,
+        product,
+        quantity
+    });
+
+    try {
+        const newOrder = await order.save();
+        res.status(201).json(newOrder);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
 exports.deleteOrder = async (req, res) => {
     try {
         const { id } = req.params;
@@ -28,14 +35,15 @@ exports.deleteOrder = async (req, res) => {
     }
 };
 
-// ✅ Update order status
 exports.updateOrderStatus = async (req, res) => {
     try {
-        const { id } = req.params;
-        const { status } = req.body; // New status (Pending, Shipped, Delivered) - Deletion/Removal is technically cancelling
-        const updatedOrder = await Order.findByIdAndUpdate(id, { status }, { new: true });
-        res.json(updatedOrder);
+        const order = await Order.findById(req.params.id);
+        if (!order) return res.status(404).json({ message: 'Order not found' });
+
+        order.status = req.body.status; 
+        await order.save();
+        res.json(order);
     } catch (error) {
-        res.status(500).json({ error: "Failed to update order status" });
+        res.status(400).json({ message: error.message });
     }
 };

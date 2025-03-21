@@ -1,6 +1,6 @@
 const express = require("express");
 const { getOrders, createOrder, deleteOrder, updateOrderStatus } = require("../controllers/OrderController");
-const { validateOrder, validateOrderStatus } = require("../utilities/OrderValidator");
+const { validateOrder, validateOrderStatus } = require("../validators/OrderValidator");
 const router = express.Router();
 
 router.get("/", getOrders); // Fetch all orders

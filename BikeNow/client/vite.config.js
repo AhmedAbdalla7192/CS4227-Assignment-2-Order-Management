@@ -5,5 +5,5 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss(),],
-  base: "/CS4227-Assignment-2-Order-Management/",
+  base: process.env.NODE_ENV === "production" ? "/CS4227-Assignment-2-Order-Management/" : "/",
 })
